@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Ilova nomi · Android</title>
+  <style>
+    /* minimal va zamonaviy dizayn */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #f6f9fc 0%, #e9f2f9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .card {
+      max-width: 520px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 48px;
+      box-shadow: 0 30px 50px rgba(0, 40, 20, 0.12), 0 10px 25px rgba(0, 30, 10, 0.1);
+      padding: 2.5rem 2rem 2.8rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease;
+    }
+
+    /* logo joyi — oddiy illustratsiya / emoji / svg */
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .logo {
+      background: #1e2b2f;
+      width: 96px;
+      height: 96px;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 25px -8px rgba(0,80,60,0.3);
+      background: linear-gradient(135deg, #1a3a32, #0f2c24);
+      color: white;
+      font-size: 52px;
+      font-weight: 500;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+
+    .logo span {
+      transform: scale(1);
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0c2e24;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 2px 5px rgba(255,255,255,0.8);
+    }
+
+    .tagline {
+      font-size: 1.12rem;
+      color: #2a4a3e;
+      background: rgba(80, 140, 120, 0.08);
+      padding: 0.4rem 1rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-bottom: 1.8rem;
+      font-weight: 400;
+      border: 1px solid rgba(70, 130, 110, 0.2);
+      backdrop-filter: blur(2px);
+    }
+
+    .description {
+      color: #1f3d33;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2.8rem;
+      padding: 0 0.5rem;
+      font-weight: 380;
+      opacity: 0.9;
+    }
+
+    /* Katta yashil tugma */
+    .download-btn {
+      background: #1b8c5e;
+      border: none;
+      width: 100%;
+      padding: 1.4rem 0.5rem;
+      border-radius: 100px;
+      font-size: 2rem;
+      font-weight: 650;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 22px 30px -12px rgba(20, 110, 70, 0.5), 0 6px 0 #0f5c3d;
+      transition: all 0.15s ease;
+      border: 1px solid rgba(255,255,255,0.3);
+      letter-spacing: 0.5px;
+      margin-top: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .download-btn:active {
+      transform: translateY(6px);
+      box-shadow: 0 16px 25px -10px rgba(20, 110, 70, 0.5), 0 2px 0 #0f5c3d;
+    }
+
+    .download-btn:hover {
+      background: #1fa06c;
+      box-shadow: 0 22px 30px -8px #1b6b4b, 0 6px 0 #0f5c3d;
+    }
+
+    /* ikonka (emulated) */
+    .btn-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+    }
+
+    /* xabar maydoni (natija yoki xatolik) */
+    .message-area {
+      margin-top: 2.2rem;
+      min-height: 3rem;
+      font-size: 1.2rem;
+      font-weight: 470;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 240, 0.5);
+      backdrop-filter: blur(5px);
+      color: #1e4235;
+      transition: opacity 0.2s;
+      border: 1px solid rgba(120, 150, 130, 0.2);
+    }
+
+    .message-area.error {
+      background: #fff2e8;
+      color: #b13e3e;
+      border-color: rgba(200, 70, 70, 0.2);
+      font-weight: 500;
+    }
+
+    /* moslashuvchanlik */
+    @media (max-width: 450px) {
+      .card { padding: 1.8rem 1.2rem 2.2rem; border-radius: 36px; }
+      h1 { font-size: 1.9rem; }
+      .download-btn { font-size: 1.8rem; padding: 1.2rem; }
+      .btn-icon { font-size: 2rem; }
+      .logo { width: 80px; height: 80px; font-size: 44px; border-radius: 26px; }
+    }
+
+    @media (max-width: 360px) {
+      .download-btn { font-size: 1.5rem; }
+      .btn-icon { font-size: 1.8rem; }
+    }
+
+    /* yuklab olish fayli mavjudligiga ishonch – local link */
+    .apk-hint {
+      font-size: 0.8rem;
+      color: #3f6b58;
+      margin-top: 0.6rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <!-- Logo joyi – zamonaviy minimal ikon -->
+    <div class="logo-wrapper">
+      <div class="logo">
+        <span>📱</span>
+      </div>
+    </div>
+
+    <!-- Ilova nomi -->
+    <h1>GreenField</h1>
+
+    <!-- qisqa tavsif -->
+    <div class="tagline">tabiat & yengillik</div>
+    <div class="description">
+      Har kuni 5 daqiqa — sog‘lom odatlar. <br> Android uchun bepul ilova.
+    </div>
+
+    <!-- Katta yashil yuklab olish tugmasi (JavaScript bilan ishlaydi) -->
+    <button class="download-btn" id="downloadTrigger">
+      <span class="btn-icon">📲</span> Yuklab olish
+    </button>
+
+    <!-- Xabarlar chiqadigan maydon (faqat android bo‘lmaganda) -->
+    <div id="statusMessage" class="message-area">
+      <!-- boshlang'ich holat (ko‘rinmaydi deyarli) -->
+      ⚡️ Android qurilmangiz bilan tayyor
+    </div>
+    <div class="apk-hint">app.apk · 18 MB</div>
+  </div>
+
+  <script>
+    (function() {
+      // APK fayl repository ichida "app.apk" nomi bilan bir xil papkada
+      const APK_PATH = 'app.apk';   // nisbiy yo‘l – GitHub Pages uchun to‘g‘ri
+
+      const downloadBtn = document.getElementById('downloadTrigger');
+      const msgDiv = document.getElementById('statusMessage');
+
+      // Androidni aniqlash (userAgent orqali)
+      function isAndroid() {
+        // eng ishonchli usul – 'Android' so‘zi va ‘Mobile’ (planchetlarni ham inobatga olsak bo‘ladi)
+        return /Android/i.test(navigator.userAgent);
+      }
+
+      // Yuklab olish funksiyasi (muqobil: window.location orqali)
+      function downloadAPK() {
+        // yashirin <a> orqali yuklab olish (eng oddiy va to‘g‘ri usul)
+        const link = document.createElement('a');
+        link.href = APK_PATH;
+        link.download = 'GreenField.apk';          // yuklanadigan fayl nomi (ixtiyoriy)
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // foydalanuvchi tugmani bosganda
+      function handleDownloadClick(event) {
+        event.preventDefault();   // hech qanday xavf yo‘q, lekin tugma default bo‘lmasligi uchun
+
+        // avval xabarni tozalab, holatni yangilaymiz
+        if (isAndroid()) {
+          // Android — .apk ni yuklab olish
+          msgDiv.textContent = '⏳ Yuklanmoqda...';
+          msgDiv.classList.remove('error');
+
+          // real yuklab olishni boshlaymiz (amalda apk mavjud bo‘lishi kerak)
+          try {
+            downloadAPK();
+            // muvaffaqiyatli boshlangan deb hisoblaymiz, xabarni ozgina kechikish bilan yangilaymiz
+            setTimeout(() => {
+              msgDiv.textContent = '✅ Yuklab olish boshlandi. (app.apk)';
+            }, 200);
+          } catch (e) {
+            msgDiv.textContent = '❌ Yuklab olishda xatolik. Qayta urinib ko‘ring.';
+            msgDiv.classList.add('error');
+          }
+        } else {
+          // Android emas – maxsus xabar
+          msgDiv.textContent = '❗ Bu ilova faqat Android telefonlar uchun';
+          msgDiv.classList.add('error');
+        }
+      }
+
+      // tugmaga hodisa biriktirish
+      downloadBtn.addEventListener('click', handleDownloadClick);
+
+      // sahifa yuklanganda dastlabki tekshiruv (agar android bo‘lmasa eslatma ko‘rsatilmaydi, faqat tugma bosilganda)
+      // (ixtiyoriy) android bo‘lmaganlarga oldindan ogohlantirish shart emas, faqat tugma bosilganda chiqadi
+      // ammo foydalanuvchiga qulaylik: agar android bo‘lmasa, mesaj maydoniga engil ma'lumot yozish mumkin (ohista)
+      if (!isAndroid()) {
+        // passiv ma'lumot, xalaqit bermaydi
+        msgDiv.textContent = '📡 Android qurilmada oching';
+        msgDiv.classList.remove('error');
+      } else {
+        msgDiv.textContent = '📲 Android aniqlangan. Yuklab olish tugmasini bosing.';
+        msgDiv.classList.remove('error');
+      }
+
+      // (Qo‘shimcha) fayl mavjudligini oldindan tekshirish imkoniyati yo‘q, 404 bo‘lsa browser o‘zi xatolikni ko‘rsatadi
+    })();
+  </script>
+
+  <!-- Eslatma: APK fayl repository ildizida 'app.apk' nomi bilan bo‘lishi kerak -->
+  <!-- GitHub Pages statik server orqali index.html va app.apk ni xizmat qiladi. -->
+  <!-- Hech qanday tashqi bog‘liqlik yo‘q, tez yuklanadi. -->
+</body>
+</html>
